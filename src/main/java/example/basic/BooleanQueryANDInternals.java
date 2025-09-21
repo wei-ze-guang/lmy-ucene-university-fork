@@ -178,6 +178,11 @@ public class BooleanQueryANDInternals {
             return Explanation.match(scorer.score(), "sum of:", leftExplain, rightExplain);
         }
 
+        @Override
+        public Scorer scorer(LeafReaderContext leafReaderContext) throws IOException {
+            return null;
+        }
+
         // We return our custom `Scorer` implementation for a given index segment, after creating the scorers for
         // each of our operands.
         @Override
@@ -218,6 +223,7 @@ public class BooleanQueryANDInternals {
         private final DocIdSetIterator docIdSetIterator;
 
         public BinaryAndScorer(Weight weight, Scorer leftScorer, Scorer rightScorer) {
+            super(weight);
             this.leftScorer = leftScorer;
             this.rightScorer = rightScorer;
             this.docIdSetIterator = new BinaryAndDocIdSetIterator(leftScorer.iterator(), rightScorer.iterator());

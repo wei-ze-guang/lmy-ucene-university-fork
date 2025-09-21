@@ -157,7 +157,9 @@ public class Aggregations {
         int segmentsPerThread = (int) Math.ceil((double) indexReader.leaves().size() / numThreads);
 
         /* Don't really create a new thread pool on every search. This is just for the example. */
-        try (ExecutorService executor = Executors.newFixedThreadPool(numThreads)) {
+        ExecutorService executor;
+        try {
+            executor= Executors.newFixedThreadPool(numThreads);
             List<C> collectors = new ArrayList<>();
             List<LeafReaderContext> threadSegments = new ArrayList<>();
             List<Future<?>> futures = new ArrayList<>();
@@ -187,6 +189,9 @@ public class Aggregations {
                 }
             }
             return collectorManager.reduce(collectors);
+        }finally {
+
+            //
         }
     }
 

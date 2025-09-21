@@ -45,10 +45,14 @@ public class DirectoryFileContents {
                 "She left the web, she left the loom, she made three paces through the room",
                 "The sly fox sneaks past the oblivious dog"
         );
+
         List<List<IndexableField>> docs = new ArrayList<>();
+
         int i = 0;
         for (String text : texts) {
+
             List<IndexableField> doc = new ArrayList<>();
+
             doc.add(new TextField("text", text, Field.Store.YES));
             /* I want one document to miss "val" */
             if (++i != 2) {

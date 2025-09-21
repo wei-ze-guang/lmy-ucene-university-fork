@@ -193,7 +193,7 @@ public class BottomUpIndexReader {
             // _0.fdx
             // _0.fdt
             // ```
-            CompoundDirectory seg0dir = codec.compoundFormat().getCompoundReader(dir, seg0info);
+            CompoundDirectory seg0dir = codec.compoundFormat().getCompoundReader(dir, seg0info,null);
             System.out.println("Compound file segment _0.cfs has the following contents:");
             for (String innerFile : seg0dir.listAll()) {
                 System.out.println(" " + innerFile);
@@ -239,7 +239,7 @@ public class BottomUpIndexReader {
             // File with suffix .fdt starts at offset 2008 and has length 313
             // These should be equal: 479 == 479
             // ```
-            try (ChecksumIndexInput cfeInput = dir.openChecksumInput("_0.cfe")) {
+            try (ChecksumIndexInput cfeInput = dir.openChecksumInput("_0.cfe",null)) {
                 /* If/when Lucene changes this file format, this header check should fail. */
                 CodecUtil.checkIndexHeader(cfeInput, "Lucene90CompoundEntries", 0, 0, seg0info.getId(), "");
                 int numFiles = cfeInput.readVInt();

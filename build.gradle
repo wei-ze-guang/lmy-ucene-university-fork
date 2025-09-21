@@ -17,11 +17,12 @@ repositories {
   To build with a different version of lucene you can use
   ./gradlew clean build -Dlucene.version=9.8.0
  */
-def version = System.getProperty("lucene.version", "10.1.0")
+def version = System.getProperty("lucene.version", "9.8.0")
 
 dependencies {
   implementation "org.apache.lucene:lucene-core:${version}"
   implementation "org.apache.lucene:lucene-queries:${version}"
   implementation "org.apache.lucene:lucene-codecs:${version}"
   implementation "org.apache.lucene:lucene-sandbox:${version}"
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
 }

@@ -360,7 +360,7 @@ public class FiniteStateTransducers {
             if (child.outboundEdges.isEmpty() == false) {
                 replaceOrRegister(child);
             }
-            Node<Boolean> canonicalChild =  registry.computeIfAbsent(child, _ -> child);
+            Node<Boolean> canonicalChild =  registry.computeIfAbsent(child, key -> child);
             if (canonicalChild != child) {
                 // Replace the child with its canonical representation
                 state.outboundEdges.put(lastChar, canonicalChild);
@@ -695,7 +695,7 @@ public class FiniteStateTransducers {
             }
             // If the child is already registered, we can replace it with its canonical representation.
             // Otherwise, we register it as a new canonical representation.
-            FSTNode<T> canonicalChild = registry.computeIfAbsent(child, _ -> child);
+            FSTNode<T> canonicalChild = registry.computeIfAbsent(child, key -> child);
             if (canonicalChild != child) {
                 // We're replacing the target node, but want to preserve the output from the edge.
                 Arc<T> newArc = new Arc<>(canonicalChild, childArc.output);
